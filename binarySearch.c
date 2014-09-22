@@ -1,21 +1,31 @@
 #include<stdio.h>
+#include<stdlib.h>
 
 int search(int *a, int len, int n);
 
-void main ()
+int main (int argc, char *argv[])
 {
-	int arr[9] = {1,2,3,4,5,6,7,8,9};
-	int num;
+	int n;
+	int i;
+	
+	if (argc < 2) {
+		printf("Usage:%s <numbers>\n", argv[0]);
+		return -1;
+	}
 
-	printf("Enter number to be searched\n");
-	scanf("%d", &num);
+	int arr[argc-1]; // declare only when argc is valid
 
-	int k = search(arr,9, num);
+	printf("Enter the number you want to search\n");
+	scanf("%d", &n);
+	for (i=0; i<argc-1; i++) {
+		arr[i] = strtol(argv[i+1], NULL, 10);
+	}		
+	int k = search(arr, argc-1, n);
 
 	if ( k != -1 )
-		printf("Element %d found in %d location", num, k);
+		printf("Number %d found in the list at position %d\n", n, k+1);
 	else
-		printf("Element %d not found\n", num);
+		printf("Sorry, number %d not found in the list\n", n);
 }
 
 int search(int *a, int len, int n)
